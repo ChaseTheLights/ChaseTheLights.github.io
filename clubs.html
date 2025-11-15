@@ -22,18 +22,7 @@
     h1 {
       margin: 0;
     }
-
-    #searchBar {
-      display: block;
-      width: 90%;
-      max-width: 600px;
-      margin: 1rem auto;
-      padding: 0.6rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 1rem;
-    }
-
+    
     table {
       border-collapse: collapse;
       width: 95%;
@@ -76,16 +65,12 @@
   <p><a href="Index.html" style="color:#ecf0f1;">⬅ Back to Home</a></p>
 </header>
 
-<input type="text" id="searchBar" placeholder="Search clubs...">
-
 <table id="clubsTable">
   <thead>
     <tr>
-      <!-- Headers will be inserted here dynamically -->
     </tr>
   </thead>
   <tbody>
-    <!-- Data rows will be inserted here dynamically -->
   </tbody>
 </table>
 
@@ -94,7 +79,6 @@
 </footer>
 
 <script>
-  // === LOAD AND BUILD TABLE ===
   async function loadTable() {
     const response = await fetch('clubs.txt');
     const text = await response.text();
@@ -104,7 +88,6 @@
     const thead = table.querySelector('thead tr');
     const tbody = table.querySelector('tbody');
 
-    // Add headers
     lines[0].forEach(header => {
       const th = document.createElement('th');
       th.textContent = header;
@@ -112,7 +95,6 @@
       th.addEventListener('click', () => sortTable(Array.from(th.parentNode.children).indexOf(th)));
     });
 
-    // Add data rows
     for (let i = 1; i < lines.length; i++) {
       const tr = document.createElement('tr');
       lines[i].forEach(cell => {
@@ -124,7 +106,6 @@
     }
   }
 
-  // === SORTING FUNCTION ===
   function sortTable(colIndex) {
     const table = document.getElementById('clubsTable');
     const tbody = table.querySelector('tbody');
@@ -146,14 +127,6 @@
 
     rows.forEach(row => tbody.appendChild(row));
   }
-
-  // === SEARCH FILTER FUNCTION ===
-  document.getElementById('searchBar').addEventListener('input', function() {
-    const filter = this.value.toLowerCase();
-    const rows = document.querySelectorAll('#clubsTable tbody tr');
-    rows.forEach(row => {
-      const text = row.innerText.toLowerCase();
-      row.style.display = text.includes(filter) ? '' : 'none';
     });
   });
 
@@ -162,4 +135,5 @@
 
 </body>
 </html>
+
 
