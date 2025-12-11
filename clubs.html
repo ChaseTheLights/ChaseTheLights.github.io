@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -6,87 +6,73 @@
 <title>Clubs</title>
 <style>
 body {
-font-family: Arial, sans-serif;
-background: #f4f4f9;
-color: #333;
-margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f4f9;
+  color: #333;
+  margin: 0;
 }
 
 header {
-background: #2c3e50;
-color: white;
-text-align: center;
-padding: 1rem;
+  background: #2c3e50;
+  color: white;
+  text-align: center;
+  padding: 1rem;
 }
 
 h1 {
-margin: 0;
+  margin: 0;
 }
 
-    #searchBar {
-      display: block;
-      width: 90%;
-      max-width: 600px;
-      margin: 1rem auto;
-      padding: 0.6rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 1rem;
-    }
-
-    
 table {
-border-collapse: collapse;
-width: 95%;
-margin: 1rem auto 2rem auto;
-background: white;
-box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-collapse: collapse;
+  width: 98%;
+  margin: 1rem auto 2rem auto;
+  background: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 th, td {
-padding: 0.7rem;
-text-align: left;
-border-bottom: 1px solid #ddd;
-font-size: 11px;
+  padding: 0.7rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 11px;
 }
 
 th {
-background: #2c3e50;
-color: white;
-cursor: pointer;
-user-select: none;
+  background: #2c3e50;
+  color: white;
+  cursor: pointer;
+  user-select: none;
 }
 
 tr:hover {
-background: #f1f1f1;
+  background: #f1f1f1;
 }
 
 footer {
-text-align: center;
-background: #2c3e50;
-color: white;
-padding: 1rem;
-margin-top: 2rem;
+  text-align: center;
+  background: #2c3e50;
+  color: white;
+  padding: 1rem;
+  margin-top: 2rem;
 }
 </style>
 </head>
 <body>
 
 <header>
-<h1>Clubs</h1>
-<p><a href="Index.html" style="color:#ecf0f1;">⬅ Back to Home</a></p>
+  <h1>Clubs</h1>
+  <p><a href="Index.html" style="color:#ecf0f1;">⬅ Back to Home</a></p>
 </header>
-
-<input type="text" id="searchBar" placeholder="Search clubs...">
 
 <table id="clubsTable">
 <thead>
 <tr>
-      <!-- Headers will be inserted here dynamically -->
+    <!-- Headers dynamically inserted -->
 </tr>
 </thead>
 <tbody>
-    <!-- Data rows will be inserted here dynamically -->
+    <!-- Data dynamically inserted -->
 </tbody>
 </table>
 
@@ -95,72 +81,67 @@ margin-top: 2rem;
 </footer>
 
 <script>
-  // === LOAD AND BUILD TABLE ===
 async function loadTable() {
-const response = await fetch('clubs.txt');
-const text = await response.text();
-const lines = text.trim().split('\n').map(line => line.split('\t'));
+  const response = await fetch('clubs.txt');
+  const text = await response.text();
+  const lines = text.trim().split('\n').map(line => line.split('\t'));
 
-const table = document.getElementById('clubsTable');
-const thead = table.querySelector('thead tr');
-const tbody = table.querySelector('tbody');
+  const EXPECTED_COLUMNS = 8;   // Ensure 8-column support
 
-    // Add headers
-lines[0].forEach(header => {
-const th = document.createElement('th');
-th.textContent = header;
-thead.appendChild(th);
-th.addEventListener('click', () => sortTable(Array.from(th.parentNode.children).indexOf(th)));
-});
+  const table = document.getElementById('clubsTable');
+  const thead = table.querySelector('thead tr');
+  const tbody = table.querySelector('tbody');
 
-    // Add data rows
-for (let i = 1; i < lines.length; i++) {
-const tr = document.createElement('tr');
-lines[i].forEach(cell => {
-const td = document.createElement('td');
-td.textContent = cell;
-tr.appendChild(td);
-});
-tbody.appendChild(tr);
+  // Insert headers (ensure 8)
+  const headers = lines[0];
+  while (headers.length < EXPECTED_COLUMNS) headers.push(""); // Pad if short
+  headers.slice(0, EXPECTED_COLUMNS).forEach(header => {
+    const th = document.createElement('th');
+    th.textContent = header;
+    thead.appendChild(th);
+    th.addEventListener('click', () => sortTable(Array.from(th.parentNode.children).indexOf(th)));
+  });
+
+  // Insert table rows
+  for (let i = 1; i < lines.length; i++) {
+    const row = lines[i];
+    while (row.length < EXPECTED_COLUMNS) row.push(""); // Pad to 8 columns
+    const tr = document.createElement('tr');
+
+    row.slice(0, EXPECTED_COLUMNS).forEach(cell => {
+      const td = document.createElement('td');
+      td.textContent = cell;
+      tr.appendChild(td);
+    });
+
+    tbody.appendChild(tr);
+  }
 }
-}
 
-  // === SORTING FUNCTION ===
 function sortTable(colIndex) {
-const table = document.getElementById('clubsTable');
-const tbody = table.querySelector('tbody');
-const rows = Array.from(tbody.querySelectorAll('tr'));
-const header = table.querySelectorAll('th')[colIndex];
-const asc = !header.asc;
-header.asc = asc;
+  const table = document.getElementById('clubsTable');
+  const tbody = table.querySelector('tbody');
+  const rows = Array.from(tbody.querySelectorAll('tr'));
+  const header = table.querySelectorAll('th')[colIndex];
+  const asc = !header.asc; 
+  header.asc = asc;
 
-rows.sort((a, b) => {
-const cellA = a.children[colIndex].innerText.trim();
-const cellB = b.children[colIndex].innerText.trim();
-const numA = parseFloat(cellA.replace(/[^0-9.-]/g, ""));
-const numB = parseFloat(cellB.replace(/[^0-9.-]/g, ""));
-if (!isNaN(numA) && !isNaN(numB)) {
-return asc ? numA - numB : numB - numA;
+  rows.sort((a, b) => {
+    const cellA = a.children[colIndex].innerText.trim();
+    const cellB = b.children[colIndex].innerText.trim();
+    const numA = parseFloat(cellA.replace(/[^0-9.-]/g, ""));
+    const numB = parseFloat(cellB.replace(/[^0-9.-]/g, ""));
+    if (!isNaN(numA) && !isNaN(numB)) {
+      return asc ? numA - numB : numB - numA;
+    }
+    return asc ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+  });
+
+  rows.forEach(row => tbody.appendChild(row));
 }
-return asc ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
-});
-
-rows.forEach(row => tbody.appendChild(row));
-}
-
-  // === SEARCH FILTER FUNCTION ===
-  document.getElementById('searchBar').addEventListener('input', function() {
-    const filter = this.value.toLowerCase();
-    const rows = document.querySelectorAll('#clubsTable tbody tr');
-    rows.forEach(row => {
-      const text = row.innerText.toLowerCase();
-      row.style.display = text.includes(filter) ? '' : 'none';
-});
-});
 
 loadTable();
 </script>
 
 </body>
 </html>
-
