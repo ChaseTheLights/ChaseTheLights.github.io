@@ -34,7 +34,7 @@ Quests	Misc	Status	Props	Name	World ID	Size / Type	Description
 ✔				THE FENG SHUI GARDEN	4968379296005728567		
 ✔			3131	The Kowloon City	6730195732566727032		
 ✔			1858	七里香 / Qilixiang	3541404653960818830		
-✔	Music		1715	回忆终成困境 / Memories ultimately become a dilemma	682988740215809801		ラックライフ - [軌跡 CD1 #01] 軌跡
+✔	Music		1715	回忆终成困境 / Memories ultimately become a dilemma	682988740215809801
 ✔	Club Portals	Portal	2890	Symbolic	3090541869708005068	Large World	
 ✔	x	x	211	Jasmine Dynasty	3834132561759947554	Small World	Nothing of Note.
 ✔	x	x	91	KingsReign	1379647614987847369	Small world	nothing of note
@@ -2016,3 +2016,4 @@ q	x	x	28	DARKSOULSS28	480738298331917755	Small world	nothing of note
 	x	x	258	The Draconic Parliament	5100767287757839637	Small world	nothing of note							
 				The Great	6311992777388757656		
 			1118	WessLand	4793698637385506483		
+
