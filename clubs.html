@@ -62,17 +62,17 @@ footer {
 
 <header>
   <h1>Clubs</h1>
-  <p><a href="Index.html" style="color:#ecf0f1;">⬅ Back to Home</a></p>
+  <p><a href="index.html" style="color:#ecf0f1;">⬅ Back to Home</a></p>
 </header>
 
 <table id="clubsTable">
 <thead>
 <tr>
-    <!-- Headers dynamically inserted -->
+
 </tr>
 </thead>
 <tbody>
-    <!-- Data dynamically inserted -->
+  
 </tbody>
 </table>
 
@@ -86,15 +86,14 @@ async function loadTable() {
   const text = await response.text();
   const lines = text.trim().split('\n').map(line => line.split('\t'));
 
-  const EXPECTED_COLUMNS = 8;   // Ensure 8-column support
+  const EXPECTED_COLUMNS = 8;  
 
   const table = document.getElementById('clubsTable');
   const thead = table.querySelector('thead tr');
   const tbody = table.querySelector('tbody');
 
-  // Insert headers (ensure 8)
   const headers = lines[0];
-  while (headers.length < EXPECTED_COLUMNS) headers.push(""); // Pad if short
+  while (headers.length < EXPECTED_COLUMNS) headers.push(""); 
   headers.slice(0, EXPECTED_COLUMNS).forEach(header => {
     const th = document.createElement('th');
     th.textContent = header;
@@ -102,10 +101,9 @@ async function loadTable() {
     th.addEventListener('click', () => sortTable(Array.from(th.parentNode.children).indexOf(th)));
   });
 
-  // Insert table rows
   for (let i = 1; i < lines.length; i++) {
     const row = lines[i];
-    while (row.length < EXPECTED_COLUMNS) row.push(""); // Pad to 8 columns
+    while (row.length < EXPECTED_COLUMNS) row.push("");
     const tr = document.createElement('tr');
 
     row.slice(0, EXPECTED_COLUMNS).forEach(cell => {
@@ -145,3 +143,4 @@ loadTable();
 
 </body>
 </html>
+
