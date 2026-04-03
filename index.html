@@ -5,72 +5,168 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>An Incomplete Project</title>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
       font-family: Arial, sans-serif;
-      margin: 0;
       background: #f4f4f9;
       color: #333;
     }
-    header {
+    .app-container {
+      display: flex;
+      min-height: 100vh;
+    }
+    .sidebar {
+      width: 260px;
       background: #2c3e50;
       color: white;
-      padding: 1rem;
-      text-align: center;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      box-shadow: 2px 0 8px rgba(0,0,0,0.05);
     }
-    h1 {
+
+    .sidebar-header {
+      padding: 1.5rem 1rem 1rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar-header h2 {
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin: 0 0 0.3rem 0;
+      color: white;
+    }
+
+    .sidebar-header p {
+      font-size: 0.8rem;
+      color: #ccc;
       margin: 0;
     }
-    nav {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      padding: 2rem;
+
+    .nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 0 1rem 2rem 1.5rem;
     }
-    a {
+
+    .nav-links a {
       display: block;
-      background: white;
-      padding: 1.2rem;
-      text-align: center;
-      border-radius: 10px;
+      background: transparent;
+      padding: 0.7rem 1rem;
       text-decoration: none;
+      font-weight: 500;
+      color: #ecf0f1;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      font-size: 1rem;
+      box-shadow: none;
+      transform: none;
+      text-align: left;
+    }
+
+    .nav-links a:hover {
+      background: #1a2a3a;
+      color: white;
+      transform: translateX(4px);
+    }
+
+    .main-content {
+      flex: 1;
+      background: #f4f4f9;
+      padding: 1.5rem 2rem 2rem 2rem;
+    }
+
+    .page-header {
+      background: #2c3e50;
+      color: white;
+      padding: 1.2rem 1.8rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+    }
+
+    .page-header h1 {
+      margin: 0;
+      font-size: 1.8rem;
       font-weight: bold;
-      color: #2c3e50;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      transition: transform 0.2s, background 0.2s;
     }
-    a:hover {
-      transform: scale(1.05);
-      background: #ecf0f1;
+
+    .page-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
-    footer {
+
+    .main-footer {
       text-align: center;
       padding: 1rem;
       background: #2c3e50;
       color: white;
-      margin-top: 2rem;
+      border-radius: 12px;
+      margin-top: 1.5rem;
+    }
+
+    @media (max-width: 700px) {
+      .app-container {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        top: 0;
+      }
+      .main-content {
+        padding: 1rem;
+      }
+    }
+    hr {
+      margin: 1rem 0;
+      border: 0;
+      border-top: 1px solid #ddd;
+    }
+    p, li {
+      line-height: 1.5;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Index</h1>
-  </header>
 
-  <nav>
-<a href="clubs.html">Clubs</a>
-<a href="Bunfest-2026.html">Bunfest - 2026</a>
-  </nav>
+<div class="app-container">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>Navigation</h2>
+    </div>
+    <div class="nav-links">
+      <a href="clubs.html">Clubs</a>
+      <a href="Bunfest-2026.html">Bunfest - 2026</a>
+    </div>
+    <div style="margin-top: 2rem; padding: 0 1.5rem 1rem 1.5rem; font-size: 0.7rem; color: #9aaebf;">
+      <hr style="border-color: #3a546d;">
+      <p>© 2025 - 2026 | Chase The Light</p>
+    </div>
+  </aside>
 
-  <footer>
-    <p>&copy; 2025 - 2026 | Chase The Light - An Incomplete Project</p>
-  </footer>
+  <main class="main-content">
+    <div class="page-header">
+      <h1>Index</h1>
+    </div>
+
+    <div class="main-footer">
+      <p>&copy; 2025 - 2026 | Chase The Light - An Incomplete Project</p>
+    </div>
+  </main>
+</div>
+
 </body>
 </html>
-a
-
-
-
-
-
-
-
