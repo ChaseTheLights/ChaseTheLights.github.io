@@ -15,21 +15,22 @@
       font-family: Arial, sans-serif;
       background: #f4f4f9;
       color: #333;
+      height: 100vh;
+      overflow: hidden;
     }
-    .app-container {
-      display: flex;
-      min-height: 100vh;
-    }
+
+    /* SIDEBAR (left) */
     .sidebar {
       width: 260px;
       background: #2c3e50;
       color: white;
-      flex-shrink: 0;
-      position: sticky;
+      position: fixed;
+      left: 0;
       top: 0;
-      height: 100vh;
+      bottom: 0;
       overflow-y: auto;
-      box-shadow: 2px 0 8px rgba(0,0,0,0.05);
+      box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+      z-index: 10;
     }
 
     .sidebar-header {
@@ -58,7 +59,7 @@
       padding: 0 1rem 2rem 1.5rem;
     }
 
-    .nav-links a {
+    .nav-links button {
       display: block;
       background: transparent;
       padding: 0.7rem 1rem;
@@ -68,105 +69,172 @@
       border-radius: 8px;
       transition: all 0.2s ease;
       font-size: 1rem;
-      box-shadow: none;
-      transform: none;
       text-align: left;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      font-family: Arial, sans-serif;
     }
 
-    .nav-links a:hover {
+    .nav-links button:hover {
       background: #1a2a3a;
       color: white;
       transform: translateX(4px);
     }
 
-    .main-content {
-      flex: 1;
+    /* MAIN RIGHT AREA - contains the iframe */
+    .main-area {
+      margin-left: 260px;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
       background: #f4f4f9;
-      padding: 1.5rem 2rem 2rem 2rem;
     }
 
-    .page-header {
+    /* small header bar above iframe (optional, shows current page) */
+    .iframe-header {
       background: #2c3e50;
       color: white;
-      padding: 1.2rem 1.8rem;
-      border-radius: 12px;
-      margin-bottom: 2rem;
+      padding: 0.8rem 1.5rem;
+      font-size: 0.9rem;
+      border-bottom: 1px solid #3a546d;
     }
 
-    .page-header h1 {
-      margin: 0;
-      font-size: 1.8rem;
+    .iframe-header span {
       font-weight: bold;
     }
 
-    .page-card {
+    /* the iframe takes all remaining space */
+    .iframe-container {
+      flex: 1;
       background: white;
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
 
-    .main-footer {
-      text-align: center;
-      padding: 1rem;
-      background: #2c3e50;
-      color: white;
-      border-radius: 12px;
-      margin-top: 1.5rem;
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: white;
     }
 
+    /* responsive */
     @media (max-width: 700px) {
-      .app-container {
-        flex-direction: column;
-      }
       .sidebar {
         width: 100%;
         height: auto;
         position: relative;
-        top: 0;
+        bottom: auto;
       }
-      .main-content {
-        padding: 1rem;
+      .main-area {
+        margin-left: 0;
+        height: auto;
+      }
+      body {
+        overflow: auto;
       }
     }
-    hr {
-      margin: 1rem 0;
-      border: 0;
-      border-top: 1px solid #ddd;
-    }
-    p, li {
-      line-height: 1.5;
+
+    /* footer inside sidebar bottom */
+    .sidebar-footer {
+      position: absolute;
+      bottom: 1rem;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 0.7rem;
+      color: #9aaebf;
+      padding: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 1rem;
     }
   </style>
 </head>
 <body>
 
-<div class="app-container">
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <h2>Navigation</h2>
-    </div>
-    <div class="nav-links">
-      <a href="clubs.html">Clubs</a>
-      <a href="Bunfest-2026.html">Bunfest - 2026</a>
-    </div>
-    <div style="margin-top: 2rem; padding: 0 1.5rem 1rem 1.5rem; font-size: 0.7rem; color: #9aaebf;">
-      <hr style="border-color: #3a546d;">
-      <p>© 2025 - 2026 | Chase The Light</p>
-    </div>
-  </aside>
-
-  <main class="main-content">
-    <div class="page-header">
-      <h1>Index</h1>
-    </div>
-
-    <div class="main-footer">
-      <p>&copy; 2025 - 2026 | Chase The Light - An Incomplete Project</p>
-    </div>
-  </main>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <h2>📁 Navigation</h2>
+    <p>Pages on the right</p>
+  </div>
+  <div class="nav-links">
+    <button onclick="loadPage('clubs.html')">Clubs</button>
+    <button onclick="loadPage('Bunfest-2026.html')">Bunfest - 2026</button>
+  </div>
+  <div class="sidebar-footer">
+    <p>&copy; 2025 - 2026 | Chase The Light</p>
+  </div>
 </div>
+
+<div class="main-area">
+  <div class="iframe-header">
+    📄 Currently viewing: <span id="currentPageLabel">Index (Home)</span>
+  </div>
+  <div class="iframe-container">
+    <iframe id="contentFrame" src="about:blank"></iframe>
+  </div>
+</div>
+
+<script>
+  function loadPage(pageUrl) {
+    const iframe = document.getElementById('contentFrame');
+    const label = document.getElementById('currentPageLabel');
+    
+    // extract display name from URL
+    let displayName = pageUrl.replace('.html', '').replace(/-/g, ' ');
+    if (displayName === 'clubs') displayName = 'Clubs';
+    if (displayName === 'Bunfest 2026') displayName = 'Bunfest - 2026';
+    
+    iframe.src = pageUrl;
+    label.textContent = displayName;
+  }
+  
+  // Optional: load a default welcome page or show a message
+  // Since you don't have an "index content" inside iframe by default, 
+  // we can show a simple welcome message in the iframe
+  const iframe = document.getElementById('contentFrame');
+  const welcomeHTML = `
+    <html>
+    <head>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          background: #f4f4f9;
+          color: #333;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          margin: 0;
+          text-align: center;
+        }
+        .welcome-card {
+          background: white;
+          padding: 2rem;
+          border-radius: 12px;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+          max-width: 500px;
+        }
+        h1 { color: #2c3e50; margin-bottom: 1rem; }
+        p { line-height: 1.5; }
+        .hello { font-size: 1.2rem; margin: 1rem 0; }
+      </style>
+    </head>
+    <body>
+      <div class="welcome-card">
+        <h1>Hello world!</h1>
+        <p>Every element on the page will be affected by the style.</p>
+        <div class="hello">✨ Me too! ✨</div>
+        <div class="hello">🎉 And me! 🎉</div>
+        <p style="margin-top: 1rem;">Select a page from the sidebar to load it here →</p>
+      </div>
+    </body>
+    </html>
+  `;
+  
+  // Write welcome message into iframe
+  iframe.srcdoc = welcomeHTML;
+  document.getElementById('currentPageLabel').textContent = 'Index (Home)';
+</script>
 
 </body>
 </html>
