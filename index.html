@@ -14,19 +14,20 @@
       height: 100vh;
     }
 
-    .main {
-      display: flex;
-      flex: 1;
-      overflow: hidden;
-    }
+nav {
+  width: 200px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 100vh;
+  box-sizing: border-box; /* 👈 FIX */
+}
 
-    nav {
-      width: 200px;
-      padding: 1rem;
+    .nav-links {
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
-      overflow-y: auto;
     }
 
     a {
@@ -48,6 +49,15 @@
       background: #ecf0f1;
     }
 
+    .sidebar-footer {
+      margin-top: auto;
+      padding-top: 10px;
+      border-top: 1px solid #ddd;
+      font-size: 0.75rem;
+      text-align: center;
+      color: #777;
+    }
+
     .content {
       flex: 1;
       background: white;
@@ -64,8 +74,14 @@
 <body>
 
   <nav>
-    <a href="clubs.html" target="contentFrame">Clubs</a>
-    <a href="Bunfest-2026.html" target="contentFrame">Bunfest - 2026</a>
+    <div class="nav-links">
+      <a href="clubs.html" target="contentFrame">Clubs</a>
+      <a href="Bunfest-2026.html" target="contentFrame">Bunfest - 2026</a>
+    </div>
+
+    <div class="sidebar-footer">
+      2025 - 2026 | Chase The Light
+    </div>
   </nav>
 
   <div class="content">
