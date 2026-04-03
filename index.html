@@ -19,6 +19,7 @@
       overflow: hidden;
     }
 
+    /* SIDEBAR */
     .sidebar {
       width: 260px;
       background: #2c3e50;
@@ -62,7 +63,6 @@
       display: block;
       background: transparent;
       padding: 0.7rem 1rem;
-      text-decoration: none;
       font-weight: 500;
       color: #ecf0f1;
       border-radius: 8px;
@@ -81,6 +81,7 @@
       transform: translateX(4px);
     }
 
+    /* MAIN RIGHT AREA */
     .main-area {
       margin-left: 260px;
       height: 100vh;
@@ -104,18 +105,9 @@
       font-weight: bold;
     }
 
-    .error-badge {
-      background: #e74c3c;
-      padding: 0.2rem 0.6rem;
-      border-radius: 4px;
-      font-size: 0.7rem;
-      display: none;
-    }
-
     .iframe-container {
       flex: 1;
       background: white;
-      position: relative;
     }
 
     iframe {
@@ -125,21 +117,17 @@
       background: white;
     }
 
-    .loading-overlay {
+    .sidebar-footer {
       position: absolute;
-      top: 0;
+      bottom: 1rem;
       left: 0;
       right: 0;
-      bottom: 0;
-      background: rgba(255,255,255,0.9);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 1.2rem;
-      color: #2c3e50;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.2s;
+      text-align: center;
+      font-size: 0.7rem;
+      color: #9aaebf;
+      padding: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 1rem;
     }
 
     @media (max-width: 700px) {
@@ -156,19 +144,6 @@
       body {
         overflow: auto;
       }
-    }
-
-    .sidebar-footer {
-      position: absolute;
-      bottom: 1rem;
-      left: 0;
-      right: 0;
-      text-align: center;
-      font-size: 0.7rem;
-      color: #9aaebf;
-      padding: 1rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      margin-top: 1rem;
     }
   </style>
 </head>
@@ -190,71 +165,29 @@
 
 <div class="main-area">
   <div class="iframe-header">
-    <span>📄 Currently viewing: <span id="currentPageLabel">Welcome</span></span>
-    <span id="errorBadge" class="error-badge">⚠️ Failed to load</span>
+    <span>📄 Currently viewing: <span id="currentPageLabel">Select a page</span></span>
   </div>
   <div class="iframe-container">
     <iframe id="contentFrame" src="about:blank"></iframe>
-    <div id="loadingOverlay" class="loading-overlay">Loading...</div>
   </div>
 </div>
 
 <script>
   const iframe = document.getElementById('contentFrame');
   const label = document.getElementById('currentPageLabel');
-  const errorBadge = document.getElementById('errorBadge');
-  const loadingOverlay = document.getElementById('loadingOverlay');
-
-  function showLoading() {
-    loadingOverlay.style.opacity = '1';
-    errorBadge.style.display = 'none';
-  }
-
-  function hideLoading() {
-    loadingOverlay.style.opacity = '0';
-  }
 
   function loadPage(pageUrl) {
-    showLoading();
-    
     let displayName = pageUrl.replace('.html', '').replace(/-/g, ' ');
     if (displayName === 'clubs') displayName = 'Clubs';
     if (displayName === 'Bunfest 2026') displayName = 'Bunfest - 2026';
     
     label.textContent = displayName;
     
-    // Try to load the page
-    iframe.onload = function() {
-      hideLoading();
-      // Check if iframe loaded successfully (not an error page)
-      try {
-        // This will throw a cross-origin error if it's a real page, but that's fine
-        // If it's a 404 page, we can't detect directly, so we set a timeout
-        setTimeout(() => {
-          hideLoading();
-        }, 500);
-      } catch(e) {
-        hideLoading();
-      }
-    };
-    
-    iframe.onerror = function() {
-      hideLoading();
-      errorBadge.style.display = 'inline-block';
-      setTimeout(() => {
-        errorBadge.style.display = 'none';
-      }, 3000);
-    };
-    
+    // Clear iframe, then load the page
     iframe.src = pageUrl;
-    
-    // Timeout fallback
-    setTimeout(() => {
-      hideLoading();
-    }, 2000);
   }
   
-  // Welcome page HTML (shows your "Hello world!" message)
+  // Welcome message
   const welcomeHTML = `
     <!DOCTYPE html>
     <html>
@@ -276,31 +209,11 @@
           padding: 2.5rem;
           border-radius: 12px;
           box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-          max-width: 550px;
+          max-width: 500px;
         }
-        h1 { 
-          color: #2c3e50; 
-          margin-bottom: 1rem;
-          font-size: 2rem;
-        }
-        p { 
-          line-height: 1.6;
-          margin: 1rem 0;
-        }
-        .hello {
-          font-size: 1.2rem;
-          margin: 1rem 0;
-          padding: 0.5rem;
-          background: #ecf0f1;
-          border-radius: 8px;
-        }
-        .nav-tip {
-          margin-top: 1.5rem;
-          padding-top: 1rem;
-          border-top: 1px solid #ddd;
-          color: #666;
-          font-size: 0.9rem;
-        }
+        h1 { color: #2c3e50; margin-bottom: 1rem; }
+        p { line-height: 1.6; margin: 1rem 0; }
+        .hello { font-size: 1.2rem; margin: 1rem 0; padding: 0.5rem; background: #ecf0f1; border-radius: 8px; }
       </style>
     </head>
     <body>
@@ -309,21 +222,14 @@
         <p><strong>Every element on the page will be affected by the style.</strong></p>
         <div class="hello">✨ Me too! ✨</div>
         <div class="hello">🎉 And me! 🎉</div>
-        <div class="nav-tip">
-          📌 Select a page from the sidebar on the left to load it here
-        </div>
+        <p style="margin-top: 1rem;">📌 Select a page from the sidebar on the left</p>
       </div>
     </body>
     </html>
   `;
   
-  // Set welcome message
   iframe.srcdoc = welcomeHTML;
-  label.textContent = 'Welcome (Home)';
-  
-  // Debug: log to console to help troubleshoot
-  console.log('Page loaded. Files should be in same folder as this index.html');
-  console.log('Expected files: clubs.html, Bunfest-2026.html');
+  label.textContent = 'Welcome';
 </script>
 
 </body>
