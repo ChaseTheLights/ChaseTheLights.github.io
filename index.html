@@ -5,232 +5,71 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>An Incomplete Project</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
       font-family: Arial, sans-serif;
+      margin: 0;
       background: #f4f4f9;
       color: #333;
-      height: 100vh;
-      overflow: hidden;
     }
-
-    /* SIDEBAR */
-    .sidebar {
-      width: 260px;
+    header {
       background: #2c3e50;
       color: white;
-      position: fixed;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      overflow-y: auto;
-      box-shadow: 2px 0 8px rgba(0,0,0,0.1);
-      z-index: 10;
+      padding: 1rem;
+      text-align: center;
     }
-
-    .sidebar-header {
-      padding: 1.5rem 1rem 1rem 1.5rem;
-      border-bottom: 1px solid rgba(255,255,255,0.2);
-      margin-bottom: 1.5rem;
-    }
-
-    .sidebar-header h2 {
-      font-size: 1.4rem;
-      font-weight: bold;
-      margin: 0 0 0.3rem 0;
-      color: white;
-    }
-
-    .sidebar-header p {
-      font-size: 0.8rem;
-      color: #ccc;
+    h1 {
       margin: 0;
     }
-
-    .nav-links {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      padding: 0 1rem 2rem 1.5rem;
+    nav {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      padding: 2rem;
     }
-
-    .nav-links button {
+    a {
       display: block;
-      background: transparent;
-      padding: 0.7rem 1rem;
-      font-weight: 500;
-      color: #ecf0f1;
-      border-radius: 8px;
-      transition: all 0.2s ease;
-      font-size: 1rem;
-      text-align: left;
-      border: none;
-      cursor: pointer;
-      width: 100%;
-      font-family: Arial, sans-serif;
+      background: white;
+      padding: 1.2rem;
+      text-align: center;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #2c3e50;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.2s, background 0.2s;
     }
-
-    .nav-links button:hover {
-      background: #1a2a3a;
-      color: white;
-      transform: translateX(4px);
+    a:hover {
+      transform: scale(1.05);
+      background: #ecf0f1;
     }
-
-    /* MAIN RIGHT AREA */
-    .main-area {
-      margin-left: 260px;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      background: #f4f4f9;
-    }
-
-    .iframe-header {
+    footer {
+      text-align: center;
+      padding: 1rem;
       background: #2c3e50;
       color: white;
-      padding: 0.8rem 1.5rem;
-      font-size: 0.9rem;
-      border-bottom: 1px solid #3a546d;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .iframe-header span {
-      font-weight: bold;
-    }
-
-    .iframe-container {
-      flex: 1;
-      background: white;
-    }
-
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      background: white;
-    }
-
-    .sidebar-footer {
-      position: absolute;
-      bottom: 1rem;
-      left: 0;
-      right: 0;
-      text-align: center;
-      font-size: 0.7rem;
-      color: #9aaebf;
-      padding: 1rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      margin-top: 1rem;
-    }
-
-    @media (max-width: 700px) {
-      .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-        bottom: auto;
-      }
-      .main-area {
-        margin-left: 0;
-        height: auto;
-      }
-      body {
-        overflow: auto;
-      }
+      margin-top: 2rem;
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1>Index</h1>
+  </header>
 
-<div class="sidebar">
-  <div class="sidebar-header">
-    <h2>📁 Navigation</h2>
-    <p>Pages on the right</p>
-  </div>
-  <div class="nav-links">
-    <button onclick="loadPage('https://chasethelights.github.io/clubs.html')">📚 Clubs</button>
-    <button onclick="loadPage('https://chasethelights.github.io/Bunfest-2026.html')">Bunfest - 2026</button>
-  </div>
-  <div class="sidebar-footer">
-    <p>&copy; 2025 - 2026 | Chase The Light</p>
-  </div>
-</div>
+  <nav>
+<a href="clubs.html">Clubs</a>
+<a href="Bunfest-2026.html">Bunfest - 2026</a>
+  </nav>
 
-<div class="main-area">
-  <div class="iframe-header">
-    <span>📄 Currently viewing: <span id="currentPageLabel">Select a page</span></span>
-  </div>
-  <div class="iframe-container">
-    <iframe id="contentFrame" src="about:blank"></iframe>
-  </div>
-</div>
-
-<script>
-  const iframe = document.getElementById('contentFrame');
-  const label = document.getElementById('currentPageLabel');
-
-  function loadPage(pageUrl) {
-    let displayName = pageUrl.replace('.html', '').replace(/-/g, ' ');
-    if (displayName === 'clubs') displayName = 'Clubs';
-    if (displayName === 'Bunfest 2026') displayName = 'Bunfest - 2026';
-    
-    label.textContent = displayName;
-    
-    // Clear iframe, then load the page
-    iframe.src = pageUrl;
-  }
-  
-  // Welcome message
-  const welcomeHTML = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <style>
-        body {
-          font-family: Arial, sans-serif;
-          background: #f4f4f9;
-          color: #333;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100vh;
-          margin: 0;
-          text-align: center;
-        }
-        .welcome-card {
-          background: white;
-          padding: 2.5rem;
-          border-radius: 12px;
-          box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-          max-width: 500px;
-        }
-        h1 { color: #2c3e50; margin-bottom: 1rem; }
-        p { line-height: 1.6; margin: 1rem 0; }
-        .hello { font-size: 1.2rem; margin: 1rem 0; padding: 0.5rem; background: #ecf0f1; border-radius: 8px; }
-      </style>
-    </head>
-    <body>
-      <div class="welcome-card">
-        <h1>🌍 Hello world!</h1>
-        <p><strong>Every element on the page will be affected by the style.</strong></p>
-        <div class="hello">✨ Me too! ✨</div>
-        <div class="hello">🎉 And me! 🎉</div>
-        <p style="margin-top: 1rem;">📌 Select a page from the sidebar on the left</p>
-      </div>
-    </body>
-    </html>
-  `;
-  
-  iframe.srcdoc = welcomeHTML;
-  label.textContent = 'Welcome';
-</script>
-
+  <footer>
+    <p>&copy; 2025 - 2026 | Chase The Light - An Incomplete Project</p>
+  </footer>
 </body>
 </html>
+a
+
+
+
+
+
+
