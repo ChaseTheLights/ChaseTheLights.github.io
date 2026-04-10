@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Bunfest Event - 2026</title>
+<title>Bunfest - March 31st - April 14th</title>
 
 <style>
 body {
@@ -61,9 +61,110 @@ footer {
 
 <body>
 
-<header>
-  <h1>Bunfest - March 31st - April 14th</h1>
-</header>
+<style>
+  .bf-root {
+    background: #f4f4f9;
+    min-height: 100vh;
+    padding: 24px;
+    font-family: Arial, sans-serif;
+    color: #333;
+    box-sizing: border-box;
+  }
+  .quest-item {
+    background: white;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    padding: 0;
+    margin-bottom: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  .quest-item:not(:last-child) { margin-bottom: 6px; }
+  .quest-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+    padding: 10px 12px;
+    transition: background 0.15s;
+  }
+  .quest-row:hover { background: #f1f1f1; }
+  .quest-body { flex: 1; min-width: 0; }
+  .quest-num { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1px; }
+  .quest-name { font-size: 12px; font-weight: bold; color: #333; }
+  .quest-reward-wrap { display: flex; flex-direction: column; align-items: flex-end; flex-shrink: 0; gap: 2px; margin-top: 2px; }
+  .quest-reward-label { font-size: 9px; color: #888; text-transform: uppercase; letter-spacing: 0.05em; }
+  .quest-reward {
+    background: #2c3e50;
+    color: white;
+    font-size: 10px; font-weight: bold;
+    padding: 2px 8px; border-radius: 3px;
+    white-space: nowrap;
+  }
+  .quest-details { display: none; padding: 0 12px 12px 12px; border-top: 1px solid #ddd; }
+  .quest-item.expanded .quest-details { display: block; }
+  .quest-desc { font-size: 11px; color: #555; line-height: 1.6; margin-top: 10px; }
+</style>
+
+<div class="bf-root">
+  <div id="questList"></div>
+</div>
+
+<script>
+const quests = [
+  { num: "1/15", name: "Greet Qubesly in the Bunfest Pavillion", desc: "Bunfest is here again and that means our friends have returned! Come greet our Hoppin' friends and Qubesly at the pavilion in the Hub." },
+  { num: "2/15", name: "Hunt for Eggs", desc: "Eggs can be found in the Medieval Highlands, Fae Forests, Candoria, Forbidden Spires, and Geode Topside at Adept Difficulty (1) or higher." },
+  { num: "3/15", name: "Defeat Eggmen", desc: "There are Eggs all over Candoria — not the hidden kind. They're scrambling up the fun. Go teach them not to mess with Bunfest." },
+  { num: "4/15", name: "Defeat King Egon", desc: "Find an Egg Dungeon in Candoria and defeat King Egon to depose this would-be ruiner of Bunfest." },
+  { num: "5/15", name: "Defeat Bunfest Delve Bosses", desc: "Head to the Hub, craft any of the Depth Steppers, then go into the Delves and defeat some yolksters." },
+  { num: "6/15", name: "Complete an Egghunt", desc: "Find one of Qubesly's Bunfest Egghunts in Candoria. Eggs can contain Chocolate, Bunfest Tokens, and more little treasures." },
+  { num: "7/15", name: "Complete Bunfest Dailies", desc: "The bun-fwens are in the Hub and looking for your help. Complete the Bunfest daily quests." },
+  { num: "8/15", name: "Make a Donation", desc: "Head to the Events Area of the Hub and make a donation at the Bunfest Station." },
+  { num: "9/15", name: "Open your Leaderboards", desc: "Defeating Egg Dungeons, completing Dailies, completing Delves, or opening Egghunt eggs all earn Leaderboard score. Track progress under the Daily Contests tab." },
+  { num: "10/15", name: "Talk with Lepora", desc: "The curious Lepora is back and brought a friend. Head to the Bunfest Pavilion and ask her what brings her here." },
+  { num: "11/15", name: "Talk to Unga Bun-ga", desc: "Unga Bun-ga has arrived from the past and brought a visitor. Talk to Bun Bun across the Bunfest Pavilion." },
+  { num: "12/15", name: "Defeat Lagorian Troglodytes", desc: "Defeat Cave Bunnies in Jurassic Jungle to send the temporal distortion bunnies back to the past. Don't worry — they don't die, they just go home." },
+  { num: "13/15", name: "Return to Lepora", desc: "Great work sending the temporal cave bunnies back. Return to Lepora for her final request." },
+  { num: "14/15", name: "Crack Eggs from Jurassic Jungle", desc: "The temporal cave bunnies left behind stolen Eggs in the Jurassic Jungle. Crack them open and collect the chocolate inside to trade for a neat invention from the past." },
+  { num: "15/15", name: "Return to Qubesly", desc: "First a future bunny, then a past bunny! That was quite heavy. Come see Qubesly for your final reward." },
+];
+
+const expanded = new Set();
+
+function render() {
+  const list = document.getElementById('questList');
+  list.innerHTML = '';
+  quests.forEach((q, i) => {
+    const exp = expanded.has(i);
+    const div = document.createElement('div');
+    div.className = 'quest-item' + (exp ? ' expanded' : '');
+
+    div.innerHTML = `
+      <div class="quest-row">
+        <div class="quest-body">
+          <div class="quest-num">${q.num}</div>
+          <div class="quest-name">${q.name}</div>
+        </div>
+        <div class="quest-reward-wrap">
+          <span class="quest-reward-label">Reward</span>
+          <span class="quest-reward">Bunfest Token</span>
+        </div>
+      </div>
+      <div class="quest-details">
+        <div class="quest-desc">${q.desc}</div>
+      </div>
+    `;
+
+    div.querySelector('.quest-row').addEventListener('click', () => {
+      if (exp) expanded.delete(i); else { expanded.clear(); expanded.add(i); }
+      render();
+    });
+
+    list.appendChild(div);
+  });
+}
+
+render();
+</script>  
 
 <h2>Coin Collection - Mid Hour</h2>
 <table>
