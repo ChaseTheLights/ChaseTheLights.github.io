@@ -59,8 +59,9 @@ footer {
 </style>
 </head>
 
+<H2>Event Quests</H2>
+  
 <body>
-
 <style>
   .bf-root {
     background: #f4f4f9;
@@ -111,21 +112,21 @@ footer {
 
 <script>
 const quests = [
-  { num: "1/15", name: "Greet Qubesly in the Bunfest Pavillion", desc: "Bunfest is here again and that means our friends have returned! Come greet our Hoppin' friends and Qubesly at the pavilion in the Hub." },
-  { num: "2/15", name: "Hunt for Eggs", desc: "Eggs can be found in the Medieval Highlands, Fae Forests, Candoria, Forbidden Spires, and Geode Topside at Adept Difficulty (1) or higher." },
-  { num: "3/15", name: "Defeat Eggmen", desc: "There are Eggs all over Candoria — not the hidden kind. They're scrambling up the fun. Go teach them not to mess with Bunfest." },
-  { num: "4/15", name: "Defeat King Egon", desc: "Find an Egg Dungeon in Candoria and defeat King Egon to depose this would-be ruiner of Bunfest." },
-  { num: "5/15", name: "Defeat Bunfest Delve Bosses", desc: "Head to the Hub, craft any of the Depth Steppers, then go into the Delves and defeat some yolksters." },
-  { num: "6/15", name: "Complete an Egghunt", desc: "Find one of Qubesly's Bunfest Egghunts in Candoria. Eggs can contain Chocolate, Bunfest Tokens, and more little treasures." },
-  { num: "7/15", name: "Complete Bunfest Dailies", desc: "The bun-fwens are in the Hub and looking for your help. Complete the Bunfest daily quests." },
-  { num: "8/15", name: "Make a Donation", desc: "Head to the Events Area of the Hub and make a donation at the Bunfest Station." },
-  { num: "9/15", name: "Open your Leaderboards", desc: "Defeating Egg Dungeons, completing Dailies, completing Delves, or opening Egghunt eggs all earn Leaderboard score. Track progress under the Daily Contests tab." },
-  { num: "10/15", name: "Talk with Lepora", desc: "The curious Lepora is back and brought a friend. Head to the Bunfest Pavilion and ask her what brings her here." },
-  { num: "11/15", name: "Talk to Unga Bun-ga", desc: "Unga Bun-ga has arrived from the past and brought a visitor. Talk to Bun Bun across the Bunfest Pavilion." },
-  { num: "12/15", name: "Defeat Lagorian Troglodytes", desc: "Defeat Cave Bunnies in Jurassic Jungle to send the temporal distortion bunnies back to the past. Don't worry — they don't die, they just go home." },
-  { num: "13/15", name: "Return to Lepora", desc: "Great work sending the temporal cave bunnies back. Return to Lepora for her final request." },
-  { num: "14/15", name: "Crack Eggs from Jurassic Jungle", desc: "The temporal cave bunnies left behind stolen Eggs in the Jurassic Jungle. Crack them open and collect the chocolate inside to trade for a neat invention from the past." },
-  { num: "15/15", name: "Return to Qubesly", desc: "First a future bunny, then a past bunny! That was quite heavy. Come see Qubesly for your final reward." },
+  { num: "1/15", name: "Greet Qubesly in the Bunfest Pavillion", desc: "Bunfest 2026 1/15: Trovian! Bunfest is here again and that means our friends have returned! Come greet our Hoppin' friends and me at the pavillion in the hub." },
+  { num: "2/15", name: "Hunt for Eggs", desc: "Bunfest 2026 2/15: Each year Bunfest comes and each year we celebrate. My favorite part is hiding eggs all over Trove. I start hopping with joy whenever I think about Trovians finding the little things. Why don't you go out and find a few?<br>Eggs can be found in the Medieval Highlands, Fae Forests, Candoria, Frobidden Spires, and Geode Topside at Adept Difficulty (1) or higher." },
+  { num: "3/15", name: "Defeat Eggmen", desc: "Bunfest 2026 3/15: Trovian! There are Eggs all over Candoria, and not the ones that I placed! They're scrambling up all the fun, why don't you go and teach them not to mess with Bunfest." },
+  { num: "4/15", name: "Defeat King Egon", desc: "Bunfest 2026 4/15: The eggmen have a leader, King Egon. Unfortunately there's a lot of 'King Egons' out there. Find an Egg Dungeon in Candoria and depose this would be ruiner of Bunfest." },
+  { num: "5/15", name: "Defeat Bunfest Delve Bosses", desc: "Bunfest 2026 5/15: Well done Trovian, but it turns out they're even in the Delves. Well we'll have to deal with that too. Head back to the Hub and craft any of the Depth Steppers, then head in there and defeat a few of these yolksters." },
+  { num: "6/15", name: "Complete an Egghunt", desc: "Bunfest 2026 6/15: Did you see the Tyr-egg-asaurus? Well you should be happy you didn't if not. I'm starting to think this may be a longer term problem. It might be best to get back to the festivities of Bunfest. Now, all this unrest might be a little my fault. You see I kind of, sort of, a little bit, maybe borrowed some teeny, tiny, itty-bitty pieces of King Egon's kingdom for Bunfest. I'm going to give them back, I promise! For now just have some fun and let me deal with the politics. In the meantime, find one of my Bunfest Egghunts in Candoria and have some fun. The eggs can have Chocolate, Bunfest Tokens, and even a few more little treasures." },
+  { num: "7/15", name: "Complete Bunfest Dailies", desc: "Bunfest 2026 7/15: Well, I have never been condescended to in such a rude manor. King Egon really needs classes on manners. But never mind, Bunfest continues, and what is Bunfest without the bun-fwens. They're here in the HUB and looking for your help." },
+  { num: "8/15", name: "Make a Donation", desc: "Bunfest 2026 8/15: Good work! I'm sure you made a lot of bun-fwends! And now to spread the love of Bunfest all over! Head over to the Events Area of the Hub and make a donation at the Bunfest Station to make it known!" },
+  { num: "9/15", name: "Open your Leaderboards", desc: "Bunfest 2026 9/15: I almost forgot, there's a Leaderboard this year! Each time you defeat an Egg Dungeon, complete a Daily quest, complete a Delve, or each egg you open in an Egghunt will earn you Score on the Bunfest Leaderboad. You can track your progress under the Daily Contests tab of the Leaderboards UI. Open the Leaderboard with [HK:Leaderboards]." },
+  { num: "10/15", name: "Talk with Lepora", desc: "Bunfest 2026 10/15: Trovian, looks like the curious Lepora is back to hang out! And this time, she brought a friend. Why don't you ask her what brings her here?" },
+  { num: "11/15", name: "Talk to Unga Bun-ga", desc: "Bunfest 2026 11/15: Hey Trovian! I'm back, and this time I came from the past and I brought a visitor with me and we kinda need your help! Please talk to Bun Bun across the room of this Beautiful Bunfest Pavilion." },
+  { num: "12/15", name: "Defeat Lagorian Troglodytes", desc: "Bunfest 2026 12/15: Me Unga Bun-ga from past. Traveling to future make other Lagorian Troglodytes like me exist. Go crush them. Don't worry. They not die. They go back to past. They hide in JURASSIC JUNGLE. Defeat Cave Bunnies in JURASSIC JUNGLE to send them back to the past." },
+  { num: "13/15", name: "Return to Lepora", desc: "Bunfest 2026 13/15: Trovian! Great work. Now those temporal distortion bunnies can go back to their time. Return to me for my final request." },
+  { num: "14/15", name: "Crack Eggs from JURASSIC JUNGLE", desc: "Bunfest 2026 14/15: The temporal cave bunnies have left behind some of their stolen Eggs, and now are all over the place in the JURASSIC JUNGLE. Why don't you head over there and crack them open, collect the delicious chocolate inside, and bring it back to me. I'll trade you for a neat invention from the past for them if you so choose!" },
+  { num: "15/15", name: "Return to Qubesly", desc: "Bunfest 2026 15/15: First it was a future bunny, then a past bunny! That was quite...heavy. Anyway, thanks again for all your effort this year, Trovian! Come see me for a reward!" },
 ];
 
 const expanded = new Set();
