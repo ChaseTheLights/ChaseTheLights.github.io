@@ -130,7 +130,7 @@ const quests = [
   { num: "12/15", name: "Defeat Lagorian Troglodytes. 0/25", desc: "Bunfest 2026 12/15: Me Unga Bun-ga from past. Traveling to future make other Lagorian Troglodytes like me exist. Go crush them. Don't worry. They not die. They go back to past. They hide in JURASSIC JUNGLE.<br><br>Defeat Cave Bunnies in JURASSIC JUNGLE to send them back to the past." },
   { num: "13/15", name: "Return to Lepora", desc: "Bunfest 2026 13/15: Trovian! Great work. Now those temporal distortion bunnies can go back to their time. Return to me for my final request." },
   { num: "14/15", name: "Crack Eggs from JURASSIC JUNGLE. 0/15", desc: "Bunfest 2026 14/15: The temporal cave bunnies have left behind some of their stolen Eggs, and now are all over the place in the JURASSIC JUNGLE. Why don't you head over there and crack them open, collect the delicious chocolate inside, and bring it back to me. I'll trade you for a neat invention from the past for them if you so choose!" },
-  { num: "15/15", name: "Return to Qubesly", desc: "Bunfest 2026 15/15: First it was a future bunny, then a past bunny! That was quite...heavy.<br><br>Anyway, thanks again for all your effort this year, Trovian! Come see me for a reward!" },
+  { num: "15/15", name: "Return to Qubesly", desc: "Bunfest 2026 15/15: First it was a future bunny, then a past bunny! That was quite...heavy.<br><br>Anyway, thanks again for all your effort this year, Trovian! Come see me for a reward!", reward: "50x Refined Chocolate" },
 ];
 
 const expanded = new Set();
@@ -149,10 +149,10 @@ function render() {
           <div class="quest-num">${q.num}</div>
           <div class="quest-name">${q.name}</div>
         </div>
-        <div class="quest-reward-wrap">
-          <span class="quest-reward-label">Reward</span>
-          <span class="quest-reward">Bunfest Token</span>
-        </div>
+<div class="quest-reward-wrap">
+  <span class="quest-reward-label">Reward</span>
+  <span class="quest-reward">${q.reward || 'Bunfest Token'}</span>
+</div>
       </div>
       <div class="quest-details">
         <div class="quest-desc">${q.desc}</div>
